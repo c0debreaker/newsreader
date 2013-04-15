@@ -1,0 +1,8 @@
+.ui-header .ui-title, .sc-logo {
+	width:182px;
+	height:60px;
+	margin:0;
+	padding:0;
+	background: url('img/solstice-logo.png') no-repeat;	
+}
+.centerObject { text-align: center }
