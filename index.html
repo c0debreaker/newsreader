@@ -452,8 +452,9 @@
 			</footer>
 		</section>		
 		
-		<script type="text/javascript">
-	        $(document).ready(function() {
+	<script type="text/javascript">
+
+		function onDeviceReady() {
 	                $.jGFeed('http://blog.solstice-mobile.com/feeds/posts/default',
 	
 	                function(feeds){
@@ -478,8 +479,16 @@
 	                }
 	                $('.mainpageUL').listview('refresh');
 	                }, 25); // Value of 25 can be set dynamically such as setting it via user's profile then retrieving it from a memcached object, session variable, etc
+
+		}
+
+		$(document).on('pageinit', '#mainpage', function() {
+
+			document.addEventListener("deviceready", onDeviceReady);
+
 	        });
-		</script>
+	</script>
+
 	<script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.3.1.min.js"></script>
