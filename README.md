@@ -4,7 +4,7 @@ Built using:
 
 - Cordova/PhoneGap
 - HTML/CSS/Javascript
-- jQuery/jQuery UI/jQuery Mobile</li>
+- jQuery/jQuery Mobile
 
 Please feel free to download, fork, or help this app improve.
 
