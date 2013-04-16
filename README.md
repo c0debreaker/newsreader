@@ -1,13 +1,10 @@
-newsreader
-==========
-
 An Android app to pull daily atom-based newsfeed.
 
 Built using:
 
-# Cordova/PhoneGap
-# HTML/CSS/Javascript
-# jQuery/jQuery UI/jQuery Mobile</li>
+- Cordova/PhoneGap
+- HTML/CSS/Javascript
+- jQuery/jQuery UI/jQuery Mobile</li>
 
 Please feel free to download, fork, or help this app improve.
 
