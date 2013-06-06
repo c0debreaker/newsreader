@@ -41,15 +41,9 @@
             $.jGFeed('http://blog.solstice-mobile.com/feeds/posts/default',
 
 	            function(feeds){
-	            // Check for errors
 	                    if(!feeds){
-	                    // there was an error
 	                            return false;
 	                    }
-	
-	            // Analyze Solstice Consulting's Atom news feeds and look for objects that are interesting 
-	            // console.log(feeds);
-	            // console.log('Feed length: ',feeds.entries.length);
 	
 	            for(var i=0; i<feeds.entries.length; i++) {
 	            		var indexCtr = parseInt(i)+1;
@@ -75,13 +69,11 @@
 	                    $('#atomNewsTopic'+indexCtr).text(entry.title);
 	            }
 	            $('.mainpageUL').listview('refresh');
-            }, 25); // Value of 25 can be set dynamically such as setting it via user's profile then retrieving it from a memcached object, session variable, etc
+            }, 25); 
 
 		}
 
 		$(document).on('pageinit', '#mainpage', function() {
-			//$(document).ready(function() {
-			//document.addEventListener("deviceready", onDeviceReady);
 			onDeviceReady();
 	    });
 	</script>
