@@ -1,89 +1,94 @@
 <!DOCTYPE html>
 <html>
-		<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="format-detection" content="telephone=no" />
-		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="css/solstice.css" />
-		<link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
-		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="js/jquery.mobile-1.3.1.min.js"></script>
-		<script type="text/javascript" src="js/jquery.jgfeed.js"></script>
-		<script type="text/javascript" src="phonegap.js"></script>
-		<title>Solstice Mobile News Reader</title>
-        
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/solstice.css" />
+<link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.3.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.jgfeed.js"></script>
+<script type="text/javascript" src="phonegap.js"></script>
+<title>Solstice Mobile News Reader</title>
 </head>
+
 <body>
-		<div id="container">		
-			<section id="mainpage" data-role="page">
-				<header data-role="header" data-position="fixed">
-					<h1 class='sc-logo'>&nbsp;</h1>
-				</header>
-			
-				<div data-role="content">
-						<h1 class="centerObject">Solstice Updates</h1>
-					<ul data-role="listview" data-inset="true" class="mainpageUL">
-					</ul>
-				</div>
-	
-				<footer class="centerObject" data-role="footer" class="ui-bar" data-position="fixed">
-					<a href="http://www.linkedin.com/in/ronneilcamara">About the author</a>
-				</footer>
-			</section>
+    <div id="container">
+        <section id="mainpage" data-role="page">
+            <header data-role="header" data-position="fixed">
+                <h1 class='sc-logo'>&nbsp;</h1>
+            </header>
 
-		</div>
-		
-	<script type="text/javascript">
+            <div data-role="content">
+                <h1 class="centerObject">Solstice Updates</h1>
+                <ul data-role="listview" data-inset="true" class="mainpageUL"></ul>
+            </div>
 
-            function onDeviceReady() {
+            <footer class="centerObject" data-role="footer" class="ui-bar" data-position="fixed">
+                <a href="http://www.linkedin.com/in/ronneilcamara">About the author</a>
+            </footer>
+        </section>
+    </div>
 
-            $.jGFeed('http://blog.solstice-mobile.com/feeds/posts/default',
+<script type="text/javascript">
 
-	            function(feeds){
-	            // Check for errors
-	                    if(!feeds){
-	                    // there was an error
-	                            return false;
-	                    }
-	
-	            // Analyze Solstice Consulting's Atom news feeds and look for objects that are interesting 
-	            // console.log(feeds);
-	            // console.log('Feed length: ',feeds.entries.length);
-	
-	            for(var i=0; i<feeds.entries.length; i++) {
-	            		var indexCtr = parseInt(i)+1;
-	                    var entry = feeds.entries[i];
-	                    var dynli = $('<li><a href="#page'+indexCtr+'" data-transition="fade">'+entry.title+'</a></li>');
-						var section = $('<section id="page'+indexCtr+'" data-role="page">'+
-											'<header data-role="header" data-position="fixed">'+
-												'<h1>&nbsp;</h1>'+
-												'<a href="#mainpage" data-role="button" class="ui-btn-left" data-transition="fade" data-icon="back">Back</a>'+
-											'</header>'+
-											'<div data-role="content">'+
-													'<h1 id="atomNewsTopic'+indexCtr+'" class="centerObject"></h1>'+
-												'<div id="contentTarget'+indexCtr+'"></div>'+
-												'</div>'+
-											'<footer class="centerObject" data-role="footer" class="ui-bar" data-position="fixed">'+
-												'<a href="http://www.linkedin.com/in/ronneilcamara">About the author</a>'+
-											'</footer>'+
-										'</section>');
+function onDeviceReady() {
 
-						$('#container').append(section);
-	                    $('.mainpageUL').append(dynli);
-	                    $('#contentTarget'+indexCtr).html(entry.content);
-	                    $('#atomNewsTopic'+indexCtr).text(entry.title);
-	            }
-	            $('.mainpageUL').listview('refresh');
-            }, 32); // Value of 32 can be set dynamically such as setting it via user's profile then retrieving it from a memcached object, session variable, etc
+    $.jGFeed('http://blog.solstice-mobile.com/feeds/posts/default',
 
-		}
+    function(feeds) {
+        // Check for errors
+        if(!feeds){
+            // there was an error, stop right here, don't continue
+            return false;
+        }
 
-		$(document).on('pageinit', '#mainpage', function() {
-			//$(document).ready(function() {
-			//document.addEventListener("deviceready", onDeviceReady);
-			onDeviceReady();
-	    });
-	</script>
+        // Analyze Solstice Consulting's Atom newsfeeds and look for objects that are interesting
+        // console.log(feeds);
+        // console.log('Feed length: ',feeds.entries.length);
+
+        var indexCtr = undefined
+        var entry = undefined
+        var dynLi = undefined
+        var section = undefined
+
+        for(var i=0; i<feeds.entries.length; i++) {
+            indexCtr = parseInt(i)+1;
+            entry = feeds.entries[i];
+            dynLi = $('<li><a href="#page' + indexCtr + '" data-transition="fade">'+entry.title+'</a></li>');
+            section = $('<section id="page'+indexCtr+'" data-role="page">'+
+                            '<header data-role="header" data-position="fixed">'+
+                            '<h1>&nbsp;</h1>'+
+                            '<a href="#mainpage" data-role="button" class="ui-btn-left" data-transition="fade" data-icon="back">Back</a>'+
+                            '</header>'+
+                            '<div data-role="content">'+
+                            '<h1 id="atomNewsTopic'+indexCtr+'" class="centerObject"></h1>'+
+                            '<div id="contentTarget'+indexCtr+'"></div>'+
+                            '</div>'+
+                            '<footer class="centerObject" data-role="footer" class="ui-bar" data-position="fixed">'+
+                            '<a href="http://www.linkedin.com/in/ronneilcamara">About the author</a>'+
+                            '</footer>'+
+                            '</section>');
+
+            $('#container').append(section);
+            $('.mainpageUL').append(dynLi);
+            $('#contentTarget'+indexCtr).html(entry.content);
+            $('#atomNewsTopic'+indexCtr).text(entry.title);
+        }
+
+        $('.mainpageUL').listview('refresh');
+
+    }, 32); // Value of 32 can be set dynamically such as setting it via user's profile then retrieving it from a memcached object, session variable, etc
+
+}
+
+    $(document).on('pageinit', '#mainpage', function() {
+        //$(document).ready(function() {
+        //document.addEventListener("deviceready", onDeviceReady);
+        onDeviceReady();
+    });
+</script>
 </body>
 </html>

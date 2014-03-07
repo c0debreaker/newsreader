@@ -1,4 +1,4 @@
-An Android app to pull daily atom-based newsfeed.
+An Android Web application to pull daily atom-based newsfeed.
 
 Built using:
 
